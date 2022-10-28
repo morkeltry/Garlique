@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+<title>Garlic</title>
+<meta name="description" content="Garlic" />
+<meta property="description" content="Garlic" />
+<meta name="keywords" content="crypto, web3, privacy, ether" />
+<meta property="og:title" content="Garlic" />
+<meta property="og:url" content="" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="Garlic" />
+<meta property="twitter:domain" content="" />
+<meta property="twitter:title" content="Garlic" />
+<meta property="twitter:description" content="Garlic" />
+<meta property="twitter:image" content="" />
+
+<head>
+
+  <link rel="stylesheet" type="text/css" href="base.css" />
+
+  <script src="https://cdn.tailwindcss.com/"></script>
+
+  <script src="src/js/colors.js"></script>
+
+  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  
+  <style>
+    [x-cloak] {display: none;}
+  </style>
+
+  <!-- include html (requires calling includeHTML(); at end of body) -->
+  <script>
+    function includeHTML() {
+      var z, i, elmnt, file, xhttp;
+      /*loop through a collection of all HTML elements:*/
+      z = document.getElementsByTagName("*");
+      for (i = 0; i < z.length; i++) {
+        elmnt = z[i];
+        /*search for elements with a certain atrribute:*/
+        file = elmnt.getAttribute("w3-include-html");
+        if (file) {
+          /*make an HTTP request using the attribute value as the file name:*/
+          xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function () {
+            if (this.readyState == 4) {
+              if (this.status == 200) { elmnt.innerHTML = this.responseText; }
+              if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
+              /*remove the attribute, and call this function once more:*/
+              elmnt.removeAttribute("w3-include-html");
+              includeHTML();
+            }
+          }
+          xhttp.open("GET", file, true);
+          xhttp.send();
+          /*exit the function:*/
+          return;
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="mouse-bg-color">
+
+  <!-- HEADER -->
+  <!-- <div w3-include-html="html/nav.html"></div> -->
+
+
+    <!-- MAIN -->
+    <div w3-include-html="main.html"></div>
+
+    <!-- FOOTER -->
+    <!-- <div w3-include-html="html/footer.html"></div> -->
+
+
+    <script>
+      includeHTML();
+    </script>
+
+  </div>
+
+
+<script>
+  console.log(" ✰ Garlic ✰ vaMpiRe sLaYeR ✰ ");
+</script>
+
+
+</body>
+
+</html>
