@@ -11,8 +11,10 @@ ecdsa
 # eth-brownie
 web3
 pysha3
+eip712-structs
 
 # server stuff
 flask
 gunicorn
 w3storage
+
