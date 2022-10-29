@@ -1,33 +1,33 @@
 [
     {
-            addressType : "EXTERNAL",
-            address : "0xabcdef0123456789",
+            receiverType : "EXTERNAL",
+            receiver : "0xabcdef0123456789",
             value: 0.4,
             redeemFromBlockNo: 123456789,
             custodyType: "LIDO_STETH",  //  || "GARLIQUE"  ||  "WSHIBU_FUTURES_PONZI"  || etc. etc.
             salt: "3e09kfmog5hekpd;KJOFOMXAK"
     },
     {
-            addressType : "EXTERNAL_GASLESS"
-            address : "0xb0b808b0b808",
+            receiverType : "EXTERNAL_GASLESS"
+            receiver : "0xb0b808b0b808",
             value: 0.4,
             redeemFromBlockNo: 123456789,
             custodyType: "LIDO_STETH",
             salt: "3e09kfmog5hekpd;KJOFOMXAK"
     },
     {
-            addressType : "FEE",
+            receiverType : "FEE",
             value: 0
-            // No address, etc. etc.
+            // No receiver, etc. etc.
     },
     {
-            addressType : "DONATE",
-            value: 0.4
-            // No address, etc. etc.
+            receiverType : "DONATE",
+            value: 0.4,
+            // No receiver, etc. etc.
     },
     {
-            addressType : "INTERNAL"
-            address : "0xabcdef0123456789",
+            receiverType : "INTERNAL"
+            receiver : "0xabcdef0123456789",
             value: 0.4,
             // No redeemFromBlockNo
             salt: "3e09kfmog5hekpd;KJOFOMXAK"            
