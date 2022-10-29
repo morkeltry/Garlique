@@ -49,7 +49,6 @@ def before_request():
         return redirect(request.url.replace("http://", "https://", 301))
 
 
-# sign route
 @app.route("/sign", methods=["POST"])
 def sign():
     """
@@ -109,7 +108,6 @@ def sign_message(message):
     signature = signing_key.sign(message.encode())
     print(len(signature))
     return signature.hex()
-
 
 def store_on_IPFS(cheque):
     """

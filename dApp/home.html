@@ -11,13 +11,10 @@
 <meta property="description" content="Garlic" />
 <meta name="keywords" content="crypto, web3, privacy, ether" />
 <meta property="og:title" content="Garlic" />
-<meta property="og:url" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:description" content="Garlic" />
-<meta property="twitter:domain" content="" />
 <meta property="twitter:title" content="Garlic" />
 <meta property="twitter:description" content="Garlic" />
-<meta property="twitter:image" content="" />
 
 <head>
 
@@ -25,33 +22,245 @@
 
   <script src="https://cdn.tailwindcss.com/"></script>
 
-  <script src="src/js/colors.js"></script>
-
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  
+
   <style>
-    [x-cloak] {display: none;}
+    [x-cloak] {
+      display: none;
+    }
   </style>
 
-  
+  <link href="http://fonts.cdnfonts.com/css/old-london" rel="stylesheet">
+
+
 </head>
 
-<body>
+<body class="text-white font-serif">
 
-test asdf
-
-<main class="flex justify-center gap-5">
-	<div class="item w-full h-32">13</div>
-	<div class="item w-full h-32">2</div>
-	<div class="item w-full h-32">3</div>
-    
-</main>
+  <div class="bg w-full h-full fixed -z-50"></div>
 
 
-<script>
-  console.log(" ✰ Garlic ✰ vaMpiRe sLaYeR ✰ ");
-</script>
+  <header class="items-center mx-auto w-1/2 m-6 ">
+    <div class="gap-4 text-center p-6 flex-col flex lg:flex-row" style="grid-template-columns: 1fr 1fr auto;">
+      <button x-data @click="$store.activeTab = 0;"
+        class="ancient window p-4 bg-color-firstthird w-full lg:w-1/2 hover:shadow-none window hover:translate-x-2 hover:translate-y-2 ">
+        <h1 class="gothic text-3xl">Send</h1>
+      </button>
+      <button x-data @click="$store.activeTab = 1;"
+        class="ancient window p-4 bg-color-secondthird w-full lg:w-1/2 hover:shadow-none window hover:translate-x-2 hover:translate-y-2 ">
+        <h1 class="gothic text-3xl">Claim</h1>
+      </button>
+    </div>
+  </header>
 
+  <main>
+
+
+    <div class="tab-wrapper m-6 lg:w-1/2 lg:mx-auto" x-data="{ activeTab:  1 }">
+      <!-- STASH TAB (0) -->
+      <div class="window p-6 bg-color-firstthird" x-show="$store.activeTab === 0" x-cloak>
+
+        <div class="typewriter horror-text text-6xl pb-4">Garlic Crypt
+        </div>
+        <p class="mb-4 text-center text-lg font-light tracking-widest">
+        <p class="py-2"> Welcome, Mortal.</p>
+        <p class="py-2"> The path ahead is very dangerous. There are vampires and leeches lurking around. They want to know where you stash your gold. </p>
+        <p class="py-2"> Here, use this garlic potion to keep them (and lovers) away. </p>
+
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptate voluptatem nostrum explicabo! Mollitia, et
+        unde. Architecto facilis neque similique ipsam quo, sunt nesciunt quos voluptatem voluptate ipsum incidunt
+        laudantium accusantium.
+        </p>
+
+
+        <div class="sm:w-1/2 mx-auto ">
+          <div class="relative window shadow-none p-2 mr-4 ">
+            <input type="text" name="senderWallet01" id="senderWallet01" step="any" class="px-3 block bg-black w-full"
+              placeholder="0x983907410272C502Fdb12506D313f6DDabDc3C6F">
+          </div>
+          <div class="relative window shadow-none p-2 ">
+            <select class="border-transparent bg-transparent py-0 pl-2 pr-7 w-full" x-model:value="$store.gChain">
+              <option class="bg-black w-full py-2" value="goerli">Goerli</option>
+              <option class="bg-black w-full py-2" value="Gnosis">Gnosis</option>
+            </select>
+          </div>
+
+        </div>
+
+        <!-- advanced options on click -->
+        <div class="flex justify-center min-w-full" x-data="{ showAdvanced: false }">
+          <button type="button" class="text-sm text-gray-500 hover:text-gray-400 mt-2"
+            @click="showAdvanced = !showAdvanced" x-show="!showAdvanced">
+            Advanced options</button>
+          <div x-show="showAdvanced" class="flex flex-col min-w-full" x-cloak>
+
+            <div class="sm:w-1/2 mx-auto mt-2">
+              <div class="relative window shadow-none p-2 w-full">
+                <!-- x-model="$store.depositPassword" -->
+                <input type="number" name="unlockDepositAmount" id="unlockDepositAmount" step="any"
+                  class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
+                  placeholder="window lock deposit">
+              </div>
+            </div>
+
+            <div class="sm:w-1/2 mx-auto mt-2">
+              <div class="relative window shadow-none p-2 w-full">
+                <!-- x-model="$store.depositPassword" -->
+                <input type="text" name="depositPassword" id="depositPassword"
+                  class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
+                  placeholder="super secret password">
+              </div>
+            </div>
+
+            <!-- hidden input: current chain -->
+            <input type="hidden" name="gChain" id="gChain" x-model="$store.gChain">
+          </div>
+        </div>
+        <div class="grid-cols-2 mt-4 w-full text-center">
+          <button x-html="$store.depositButtonText"
+            class="text-3xl p-4 m-2 px-4 bg-color-secondthird hover:shadow-none window w-full sm:w-1/3 hover:translate-x-2 hover:translate-y-2 "
+            @click="deposit();">
+            Stash </button>
+        </div>
+      </div>
+
+      <!-- STASH SUCCESS TAB -->
+      <div class="window p-6 bg-color-firstthird" x-cloak x-show="$store.depositSuccess">
+        <div class="typewriter glitch-letters">
+          <h1 class="lg:text-3xl text-xl">Deposit Confirmed!</h1>
+        </div>
+        <p class="mb-4 text-3xl">
+          This is very important data. Don't lose it.
+        </p>
+
+        <div class="flex flex-col" x-data>
+          <div class="flex justify-between">
+            <p class="">Deposit Amount:</p>
+            <p class="" x-text="$store.depositSuccessAmount"></p>
+          </div>
+        </div>
+        <div class="flex justify-between">
+          <p class="">Deposit Password:</p>
+          <p class="" x-text="$store.depositSuccessPassword"></p>
+        </div>
+        <div class="flex justify-between">
+          <p class="">Deposit Index:</p>
+          <p class="" x-text="$store.depositSuccessIdx"></p>
+        </div>
+        <div class="flex justify-between">
+          <p class="">Deposit Tx:</p>
+          <p class="text-sm"><a class="word-break text-sm" x-text="$store.depositSuccessTx"
+              x-bind:href="$store.depositSuccessTxLink" target="_blank"></a></p>
+        </div>
+        <div class="flex justify-between">
+          <p class="">Deposit Link:</p>
+          <a class="word-break text-sm" x-text="$store.depositSuccessLink" x-bind:href="$store.depositSuccessLink"
+            target="_blank" rel="noopener noreferrer"></a>
+        </div>
+      </div>
+
+
+      <!-- FETCH TAB (1) -->
+      <div class="window p-6 bg-color-secondthird"
+        x-show="$store.activeTab === 1 && $store.depositSuccess === false && $store.withdrawSuccess === false" x-cloak
+        x-init="if (window.location.href.indexOf('?') > -1) { $store.activeTab = 1;  console.log('url params found'); }">
+        <div class="typewriter glitch-letters">
+          <h1 class="lg:text-3xl text-xl">Right to fetch.</h1>
+        </div>
+        <p class="mb-4 text-3xl">
+          Being a cyber squirrel is a right.
+          Fetch stashed crypto at any time with your secret link:
+        </p>
+        <div class="sm:w-3/4 mx-auto my-4 mt-8">
+          <div class="relative window shadow-none p-2">
+            <input type="text" name="fetchPassphrase" id="fetchPassphrase"
+              class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
+              placeholder="Super Secret Passphrase">
+            <div class="absolute inset-y-0 right-0 flex items-center">
+              </select>
+            </div>
+          </div>
+          <div class="relative window shadow-none p-2">
+            <input type="number" name="fetchDepositIndex" id="fetchDepositIndex" step="any"
+              class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
+              placeholder="Index of Deposit you want to claim">
+            <div class="absolute inset-y-0 right-0 flex items-center">
+              </select>
+            </div>
+          </div>
+
+          <div class="relative window shadow-none p-2">
+            <input type="number" name="fetchUnlockDepositAmount" id="fetchUnlockDepositAmount" step="any"
+              class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
+              placeholder="Index of Deposit you want to claim" value="0">
+            <div class="absolute inset-y-0 right-0 flex items-center">
+              </select>
+            </div>
+          </div>
+
+          <div class="relative window shadow-none p-2">
+            <input type="text" name="fetchChain" id="fetchChain" step="any"
+              class="px-3 block bg-black w-full border-gray focus:border-solid sm:text-sm"
+              placeholder="Index of Deposit you want to claim" value="0">
+            <div class="absolute inset-y-0 right-0 flex items-center">
+              </select>
+            </div>
+          </div>
+
+          <!-- explanatory text -->
+          <div class="flex justify-center min-w-full">
+            <div class="flex flex-col min-w-full" x-cloak>
+              <p class="text-sm text-gray-500 hover:text-gray-400 mt-2">
+                This will require 2 transactions: One to lock your deposit (so you don't get frontrun) and one to claim
+                your deposit. You will have 100 blocks of time, or about 15 minutes to claim the second transaction.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-cols-2 mt-4 w-full text-center">
+          <button x-html="$store.withdrawButtonText"
+            class="text-3xl p-4 px-12 bg-color-secondthird hover:shadow-none window hover:translate-x-2 hover:translate-y-2 "
+            @click="withdrawEtherPassword(); console.log('fetch clicked')">
+            Fetch </button>
+        </div>
+
+      </div>
+
+      <!-- FETCH SUCCESS TAB -->
+
+      <div class="window p-6 bg-color-firstthird" x-cloak x-show="$store.withdrawSuccess">
+        <div class="typewriter glitch-letters">
+          <h1 class="lg:text-3xl text-xl">fetch confirmed</h1>
+        </div>
+        <p class="mb-4 text-xl">
+          You dug up your stash and retrieved your funds. You are a cyber squirrel. You feel empowered. They can't
+          sanction you.
+        </p>
+
+        <p class="mb-4 text-lg">
+          Your transaction hash: <a class="word-break text-sm" x-text="$store.withdrawSuccessTx" target="_blank"
+            x-bind:href="$store.withdrawSuccessLink"></a>
+        </p>
+      </div>
+    </div>
+
+  </main>
+
+
+
+  <script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.store('activeTab', 0)
+    })
+  </script>
+
+
+
+  <script defer src="colors.js"></script>
+  <script>
+    console.log(" ✰ Garlic ✰ vaMpiRe sLaYeR ✰ ");
+  </script>
 
   <!-- Javascript stuff -->
   <script defer src="alpinejs@3.x.x.cdn.min.js"></script>
