@@ -17,16 +17,11 @@ from flask import (
 import json
 from werkzeug.exceptions import HTTPException
 import requests
-from ecdsa import SigningKey
-import ecdsa
-
-ETHERSCAN_API_KEY = "A5B6KPZ99R1DHF94EEAJMIUSW3DWJDQCM5"
-SERVER_PRIVATE_KEY = "badea878ddd6f34cd2d061f3a095f3dba6be10357d5c5ef0b7e5a64ced930809"
-SERVER_PUBLIC_KEY = "63439c944f4a2680cb9cd13a45341241fb6bb22c9df5a3028aae5766d589464ddd084ef3f8f873217c200b1a8d66e39f17eaeb7a9a0b02c27a6e181ee7a729e1"
-signing_key = SigningKey.from_string(
-    bytes.fromhex(SERVER_PRIVATE_KEY), curve=ecdsa.SECP256k1
-)
-verify_key = signing_key.get_verifying_key()
+import w3storage
+from web3 import Web3
+from hexbytes import HexBytes
+from eth_account.messages import encode_defunct
+from config import *
 
 
 # init Flask App
@@ -100,19 +95,14 @@ def sign():
         return jsonify({"error": "invalid request"})
 
 
-def sign_message(message):
-    """
-    Signs a message with the server's private key
-    """
-    message = json.dumps(message, sort_keys=True)
-    signature = signing_key.sign(message.encode())
-    print(len(signature))
-    return signature.hex()
-
 def store_on_IPFS(cheque):
     """
     Encrypts and stores a cheque on IPFS
     """
+    cid = w3.post_upload('helllo')
+    w3_storage = w3storage.API(token=NFT_STORAGE_API_KEY)
+
+
     pass
 
 
@@ -149,10 +139,31 @@ def delete_cheque(cheque):
 def get_cheques():
     """
     Returns all cheques for a given address (if signature is valid)
+    @params:
+        @address
+        @message
+        @signature
     """
+    # params from request
+    address = request.args.get("address")
+    message = request.args.get("message")
+    signature = request.args.get("signature")
+
+    # validate signature
+    if not verify_signature(address, message, signature):
+        return make_response(jsonify({"error": "invalid signature"}), 400)
     pass
 
 
+def verify_signature(address, message, signature):
+    """
+    Verifies a signature for a given ethereum address
+    """
+    w3 = Web3(Web3.HTTPProvider(""))
+    message = encode_defunct(text="6875972781")
+    address = w3.eth.account.recover_message(message,signature=HexBytes("0x0293cc0d4eb416ca95349b7e63dc9d1c9a7aab4865b5cd6d6f2c36fb1dce12d34a05039aedf0bc64931a439def451bcf313abbcc72e9172f7fd51ecca30b41dd1b"))
+    print(address)
+    # use 
 
 
 
