@@ -4,7 +4,8 @@ pragma solidity ^0.8.9;
 // import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/v4.7.3/ownership/Ownable.sol";
 // but if using hardhat, yopu'll need to npm it:
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol";
+// import "@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol";
+import "./draft-EIP712-pruned.sol";
 // Uncomment this line to use console.log
 import "hardhat/console.sol";
 
@@ -18,6 +19,7 @@ contract Garlique is Ownable, EIP712 {
     bytes32 private immutable _CACHED_DOMAIN_SEPARATOR;
     bytes32 private immutable _HASHED_NAME;
     bytes32 private immutable _HASHED_VERSION;
+    bytes32 private immutable _TYPE_HASH;
     uint256 private immutable _CACHED_CHAIN_ID;
 
     // struct EIP712Domain {
@@ -93,6 +95,7 @@ contract Garlique is Ownable, EIP712 {
         _CACHED_DOMAIN_SEPARATOR = _buildDomainSeparator(typeHash, hashedName, hashedVersion);
         _HASHED_NAME = hashedName;
         _HASHED_VERSION = hashedVersion;
+        _TYPE_HASH = typeHash;
         _CACHED_CHAIN_ID = block.chainid;
 
         // owner = payable(msg.sender);
@@ -114,6 +117,13 @@ contract Garlique is Ownable, EIP712 {
 
     function _buildDomainSeparator(bytes32 _typeHash, bytes32 _nameHash, bytes32 _versionHash) override private view returns (bytes32) {
         return _buildShortDomainSeparator(_typeHash, _nameHash, _versionHash);
+    }
+
+    /**
+     * @dev Returns the domain separator for the current chain.
+     */
+    function _domainSeparatorV4() internal override view returns (bytes32) {
+        return _buildDomainSeparator(_TYPE_HASH, _HASHED_NAME, _HASHED_VERSION);
     }
 
     function _buildChequeStructHash(SignedCheque calldata _cheque) public pure returns (bytes32) {
