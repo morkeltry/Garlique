@@ -1,4 +1,4 @@
-# Toilet Brush 🚽
+# Garlique 🧄
 Soft privacy for public ledgers
 
 
