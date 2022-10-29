@@ -299,13 +299,6 @@ if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)
 
     # test with curl
-
-    # value = data["value"]
-    # rcvr = data["rcvr"]
-    # rcvr_type = "0"
-    # custody_option = "0"
-    # redeemFromUnixTime = data["redeemFromUnixTime"]
-    # salt = data["salt"]
-    """ curl -H "Content-Type: application/json" -X POST -d '{"txhash":"0xadb037f6d8d2f31c39d3ac14ab2590956b74ddb8fbf9f0d74176ac3c43d709c0",  "value":"1",   "rcvr":"0x2a1cb5fd815b0ec7628c2f70276b552c12921fd2032d11ca1423a939e51682eb",  "rcvr_type":"0",   "custody_option":"0",     "redeemFromUnixTime":"1630000000",    "salt":"1234"}'  http://10.1.0.70:5000/sign  
+    """ 
     curl -H "Content-Type: application/json" -X POST -d '{"txhash":"0xadb037f6d8d2f31c39d3ac14ab2590956b74ddb8fbf9f0d74176ac3c43d709c0",  "value":"1",   "rcvr":"0x064bd35c9064fc3e628a3be3310a1cf65488103d",  "rcvr_type":"0",   "custody_option":"0",     "redeemFromUnixTime":"1630000000",    "salt":"1234"}'  http://10.1.0.70:5000/sign  
     """
