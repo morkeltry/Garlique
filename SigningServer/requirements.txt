@@ -1,5 +1,3 @@
-flask
-
 ### External Python libraries to install in venv
 # TODO: add versions (maybe?)
 
@@ -17,3 +15,4 @@ pysha3
 # server stuff
 flask
 gunicorn
+livereload
