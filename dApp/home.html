@@ -56,11 +56,11 @@
 
 
     <div class="tab-wrapper m-2 lg:w-1/2 lg:mx-auto" x-data="{ activeTab:  1 }">
-      <!-- STASH TAB (0) -->
-      <div class="window p-3 bg-color-firstthird" x-show="$store.activeTab === 0" x-cloak>
+      <!-- DUST TAB (0) -->
+      <div class="window p-3 lg:p-8 bg-color-firstthird" x-show="$store.activeTab === 0" x-cloak>
 
         <span class="horror-text gothic text-4xl lg:text-7xl pb-4">
-          <ul class="">
+          <ul class="items-center">
             <li>G</li>
             <li>a</li>
             <li>r</li>
@@ -83,7 +83,7 @@
         </p>
 
         <div class="sm:w-1/2 mx-auto mt-4 window-thin">
-          <span class="mx-auto">Your Dust Wallet 0</span>
+          <span class="mx-auto">Dust Wallet 0</span>
           <div class="relative shadow-none p-2 mr-4 my-2 w-full bg-black">
             <input type="text" name="senderWallet0" id="senderWallet0" step="any"
               class="px-3 block w-full bg-black text-sm" placeholder="0x983907410272C502Fdb12506D313f6DDabDc3C6F">
@@ -106,16 +106,9 @@
 
 
 
-        <div class="text-center sm:w-1/2 mx-auto" x-data="{showWallet1:false}">
-          <a href="">
-            <div class="window-thin font-black text-sm py-2 p-0 sm:w-1/2" @click="showWallet1 = !showWallet1"
-              x-show="!showWallet1">
-              Add More Wallets 1 +
-            </div>
-          </a>
-        </div>
 
-        <div class="sm:w-1/2 mx-auto mt-4 window-thin" x-show="showWallet1">
+
+        <div class="sm:w-1/2 mx-auto mt-4 window-thin">
           <span class="mx-auto">Dust Wallet 1</span>
           <div class="relative shadow-none p-2 mr-4 my-2 w-full bg-black">
             <input type="text" name="senderWallet0" id="senderWallet0" step="any"
@@ -138,9 +131,13 @@
           </div>
         </div>
 
-
-
-
+        <div class="text-center sm:w-1/2 mx-auto mt-4">
+          <a href="">
+            <div class="window-thin font-black text-sm py-2 p-0 sm:w-1/2">
+              Add More Wallets +
+            </div>
+          </a>
+        </div>
 
         <div class="grid-cols-2 mt-4 w-full text-center">
           <button x-html="$store.depositButtonText"
@@ -148,8 +145,10 @@
             @click="deposit();">
             Stash </button>
         </div>
-
       </div>
+
+
+
 
 
 
