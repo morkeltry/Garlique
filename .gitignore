@@ -2,6 +2,9 @@
 venv/
 dist/
 
+__pycache__/
+
+
 packages/subgraph/subgraph.yaml
 packages/subgraph/generated
 packages/subgraph/abis/*
