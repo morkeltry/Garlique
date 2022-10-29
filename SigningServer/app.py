@@ -44,7 +44,6 @@ def before_request():
         return redirect(request.url.replace("http://", "https://", 301))
 
 
-# sign route
 @app.route("/sign", methods=["POST"])
 def sign():
     """
