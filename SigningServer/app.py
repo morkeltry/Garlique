@@ -20,25 +20,25 @@ import requests
 from ecdsa import SigningKey
 import ecdsa
 
-# # generate ecdsa key pair
-# signing_key = SigningKey.generate(curve=ecdsa.SECP256k1)
-# verify_key = signing_key.get_verifying_key()
-# SERVER_PRIVATE_KEY = signing_key.to_string().hex()
-# SERVER_PUBLIC_KEY = verify_key.to_string().hex()
+ETHERSCAN_API_KEY = "A5B6KPZ99R1DHF94EEAJMIUSW3DWJDQCM5"
 SERVER_PRIVATE_KEY = "badea878ddd6f34cd2d061f3a095f3dba6be10357d5c5ef0b7e5a64ced930809"
 SERVER_PUBLIC_KEY = "63439c944f4a2680cb9cd13a45341241fb6bb22c9df5a3028aae5766d589464ddd084ef3f8f873217c200b1a8d66e39f17eaeb7a9a0b02c27a6e181ee7a729e1"
 signing_key = SigningKey.from_string(
     bytes.fromhex(SERVER_PRIVATE_KEY), curve=ecdsa.SECP256k1
 )
 verify_key = signing_key.get_verifying_key()
-print(f"SERVER_PRIVATE_KEY: {SERVER_PRIVATE_KEY}")
-print(f"SERVER_PUBLIC_KEY: {SERVER_PUBLIC_KEY}")
 
+
+# init Flask App
 app = Flask(__name__)
-ETHERSCAN_API_KEY = "A5B6KPZ99R1DHF94EEAJMIUSW3DWJDQCM5"
 
 
-# before request redirect to https
+internal_cheques = []  # array of internal cheques (for splitting and merging)
+external_cheques = []  # array of external cheques (for user claiming)
+ipfs_cheques = []  # array of IPFS hashes of cheques
+
+
+# ensure https (don't want leaked cheques)
 @app.before_request
 def before_request():
     if (
@@ -49,6 +49,7 @@ def before_request():
         return redirect(request.url.replace("http://", "https://", 301))
 
 
+# sign route
 @app.route("/sign", methods=["POST"])
 def sign():
     """
@@ -108,6 +109,53 @@ def sign_message(message):
     signature = signing_key.sign(message.encode())
     print(len(signature))
     return signature.hex()
+
+
+def store_on_IPFS(cheque):
+    """
+    Encrypts and stores a cheque on IPFS
+    """
+    pass
+
+
+def merge_internal_cheques(**kwargs):
+    """
+    Merges n internal (valid) cheques, deletes them from storage and returns a new cheque
+    """
+    pass
+
+
+def split_internal_cheque(cheque, **kwargs):
+    """
+    Splits an internal cheque into n new cheques
+    """
+    pass
+
+
+def redeem_internal_cheque(cheque):
+    """
+    Converts an internal cheque into an external cheque
+    """
+    pass
+
+
+@app.route("/delete", methods=["POST"])
+def delete_cheque(cheque):
+    """
+    Deletes a cheque from storage
+    """
+    pass
+
+
+@app.route("/cheques", methods=["GET"])
+def get_cheques():
+    """
+    Returns all cheques for a given address (if signature is valid)
+    """
+    pass
+
+
+
 
 
 if __name__ == "__main__":
