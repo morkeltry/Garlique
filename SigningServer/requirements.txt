@@ -15,4 +15,4 @@ pysha3
 # server stuff
 flask
 gunicorn
-livereload
+w3storage
