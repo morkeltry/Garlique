@@ -21,7 +21,7 @@
 
 <head>
 
-  <link rel="stylesheet" type="text/css" href="base.css" />
+  <link href="dist/output.css" rel="stylesheet">
 
   <script src="https://cdn.tailwindcss.com/"></script>
 
@@ -33,56 +33,19 @@
     [x-cloak] {display: none;}
   </style>
 
-  <!-- include html (requires calling includeHTML(); at end of body) -->
-  <script>
-    function includeHTML() {
-      var z, i, elmnt, file, xhttp;
-      /*loop through a collection of all HTML elements:*/
-      z = document.getElementsByTagName("*");
-      for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-        /*search for elements with a certain atrribute:*/
-        file = elmnt.getAttribute("w3-include-html");
-        if (file) {
-          /*make an HTTP request using the attribute value as the file name:*/
-          xhttp = new XMLHttpRequest();
-          xhttp.onreadystatechange = function () {
-            if (this.readyState == 4) {
-              if (this.status == 200) { elmnt.innerHTML = this.responseText; }
-              if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
-              /*remove the attribute, and call this function once more:*/
-              elmnt.removeAttribute("w3-include-html");
-              includeHTML();
-            }
-          }
-          xhttp.open("GET", file, true);
-          xhttp.send();
-          /*exit the function:*/
-          return;
-        }
-      }
-    };
-  </script>
+  
 </head>
 
-<body class="mouse-bg-color">
+<body>
 
-  <!-- HEADER -->
-  <!-- <div w3-include-html="html/nav.html"></div> -->
+test asdf
 
-
-    <!-- MAIN -->
-    <div w3-include-html="main.html"></div>
-
-    <!-- FOOTER -->
-    <!-- <div w3-include-html="html/footer.html"></div> -->
-
-
-    <script>
-      includeHTML();
-    </script>
-
-  </div>
+<main class="flex justify-center gap-5">
+	<div class="item w-full h-32">13</div>
+	<div class="item w-full h-32">2</div>
+	<div class="item w-full h-32">3</div>
+    
+</main>
 
 
 <script>
