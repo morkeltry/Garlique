@@ -19,9 +19,10 @@ add input fields for NFT SC address and NFT ID
     href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐿️</text></svg>">
 
   <link rel="stylesheet" href="output.css">
-  <link rel="stylesheet" href="main.css">
+  <!-- <link rel="stylesheet" href="main.css"> -->
 
 
+  <!-- @konrad remove later -->
   <style>
     [x-cloak] {
       display: none;
@@ -47,7 +48,7 @@ add input fields for NFT SC address and NFT ID
   <header class="items-center mx-auto w-1/2 m-6 ">
     <div class="gap-4 text-center p-6 flex-col flex lg:flex-row" style="grid-template-columns: 1fr 1fr auto;">
       <button x-data @click="$store.activeTab = 0;"
-        class="window p-4 bg-color-secondthird w-full lg:w-1/2 hover:shadow-none window hover:translate-x-2 hover:translate-y-2 ">
+        class="p-4 bg-color-firstthird window w-full lg:w-1/2 hover:shadow-none window hover:translate-x-2 hover:translate-y-2 ">
         Stash Options </button>
       <button x-data @click="$store.activeTab = 1;"
         class="window p-4 bg-color-secondthird w-full lg:w-1/2 hover:shadow-none window hover:translate-x-2 hover:translate-y-2 ">

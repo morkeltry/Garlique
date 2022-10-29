@@ -48,15 +48,27 @@ body {
   opacity: 0.3;
 }
 
-a {
-  text-decoration: underline !important;
-}
+
 
 .window {
   border: 10px solid transparent;
   padding: 15px;
   border-image: url(border.png) 30 round;
 }
+
+.window-thin {
+    border: 10px solid transparent;
+    padding: 15px;
+    border-image: url(border-thin.png) 30 round;
+  }
+
+.window-rounded {
+    border-color: white;
+    border: 10px solid transparent;
+    border-radius: 50%;
+    padding: 15px;
+  }
+  
 
 .ancient {
   font-family: "Ancient";
@@ -138,31 +150,6 @@ a {
     var(--noise);
 }
 
-/* The smooth gradient to give the ball some sheen. Blending with the noise further sharpens it. */
-
-
-
-.ground-shadowa {
-  width: 95%;
-  height: 240px;
-  border-radius: 50%;
-  background: radial-gradient(
-      ellipse at 30%,
-      hsla(var(--secondthird), 100%, 20%, 1),
-      rgba(0, 0, 0, 0)
-    ),
-    var(--noise);
-  filter: contrast(150%) brightness(700%);
-  mix-blend-mode: multiply;
-}
-
-.typewriter h1 {
-  overflow: hidden;
-  border-right: 0.15em solid hsla(var(--h), 100%, 50%, 1);
-  white-space: nowrap;
-  letter-spacing: 0.15em;
-  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-}
 
 /* The typing effect. thanks geoffgraham!  */
 @keyframes typing {
@@ -185,131 +172,41 @@ a {
   }
 }
 
-.horror-text {
-    animation-duration: 1.5s;
-    animation-iteration-count: infinite;
-    animation-name: flickering;
-    animation-timing-function: step-start;
-    color: hsla(var(--firstthird), 100%, 5%, 0.5);
-    font-family: "Old London", serif;
+.horror-text>ul {
+    display: flex;
+    align-items: center;
+}
+
+button {
+    transition: 1s;
+}
+
+button:active {
+    filter: blur(70px);
+}
+
+.horror-text>ul>li{
+    list-style: none;
+    letter-spacing: 5px;
+    transition: 1s;
   }
-  
-  @keyframes flickering {
-    0% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: none;
-      transform: skewX(0);
-    }
-    5% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: none;
-      transform: skewX(0);
-    }
-    10% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: 1px 1px #eee;
-      transform: skewX(-15deg);
-    }
-    15% {
-      color: #ccc;
-      text-shadow: none;
-      transform: skewX(-15deg);
-    }
-    20% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: none;
-      transform: skewX(0);
-    }
-    25% {
-      color: #ccc;
-      text-shadow: 2px 2px hsla(var(--firstthird), 100%, 5%, 0.5);
-      transform: skewX(0);
-    }
-    30% {
-      color: #ccc;
-      text-shadow: 2px 2px hsla(var(--firstthird), 100%, 5%, 0.5);
-      transform: skewX(0);
-    }
-    35% {
-      color: #ccc;
-      text-shadow: 2px 2px hsla(var(--firstthird), 100%, 5%, 0.5);
-      transform: skewX(0);
-    }
-    37% {
-      color: #ccc;
-      text-shadow: 1px 1px #eee;
-      transform: skewX(0);
-    }
-    40% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: 1px 1px #eee;
-      transform: skewX(0);
-    }
-    45% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: 1px 1px #eee;
-      transform: skewX(0);
-    }
-    50% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: none;
-      transform: skewX(0);
-    }
-    55% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: none;
-      transform: skewX(0);
-    }
-    60% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: none;
-      transform: skewX(0);
-    }
-    65% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: none;
-      transform: skewX(0);
-    }
-    68% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: 1px 1px #eee;
-      transform: skewX(0);
-    }
-    70% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: 1px 1px #eee;
-      transform: skewX(0);
-    }
-    75% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: 1px 1px #eee;
-      transform: skewX(10deg);
-    }
-    80% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: 1px 1px #eee;
-      transform: skewX(10deg);
-    }
-    85% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: 1px 1px #eee;
-      transform: skewX(10deg);
-    }
-    90% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: none;
-      transform: skewX(0);
-    }
-    95% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: 1px 1px #eee;
-      transform: skewX(0);
-    }
-    100% {
-      color: hsla(var(--firstthird), 100%, 5%, 0.5);
-      text-shadow: none;
-      transform: skewX(0);
-    }
+  /*creating the ghost effect*/
+  li:hover{
+    filter: blur(70px);
+    opacity: 0;
   }
-  
-  
+  li:nth-child(1){
+    animation-delay: 0.1s;
+  }
+  li:nth-child(2){
+    animation-delay: 0.2s;
+  }
+  li:nth-child(3){
+    animation-delay: 0.3s;
+  }
+  li:nth-child(4){
+    animation-delay: 0.4s;
+  }
+  li:nth-child(5){
+    animation-delay: 0.5s;
+  }
