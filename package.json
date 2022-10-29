@@ -1,0 +1,51 @@
+{
+  "name": "@scaffold-eth/monorepo",
+  "version": "1.0.0",
+  "keywords": [
+    "ethereum",
+    "react",
+    "uniswap",
+    "workspaces",
+    "yarn"
+  ],
+  "private": true,
+  "scripts": {
+    "chain": "yarn workspace @scaffold-eth/hardhat chain",
+    "fork": "yarn workspace @scaffold-eth/hardhat fork",
+    "node": "yarn workspace @scaffold-eth/hardhat chain",
+    "test": "yarn workspace @scaffold-eth/hardhat test",
+    "compile": "yarn workspace @scaffold-eth/hardhat compile",
+    "deploy": "yarn workspace @scaffold-eth/hardhat deploy",
+    "verify": "yarn workspace @scaffold-eth/hardhat verify",
+    "watch": "yarn workspace @scaffold-eth/hardhat watch",
+    "accounts": "yarn workspace @scaffold-eth/hardhat accounts",
+    "balance": "yarn workspace @scaffold-eth/hardhat balance",
+    "send": "yarn workspace @scaffold-eth/hardhat send",
+    "generate": "yarn workspace @scaffold-eth/hardhat generate",
+    "account": "yarn workspace @scaffold-eth/hardhat account",
+    "mineContractAddress": "cd packages/hardhat && npx hardhat mineContractAddress",
+    "wallet": "cd packages/hardhat && npx hardhat wallet",
+    "fundedwallet": "cd packages/hardhat && npx hardhat fundedwallet",
+    "flatten": "cd packages/hardhat && npx hardhat flatten",
+    "clean": "cd packages/hardhat && npx hardhat clean",
+    "postinstall": "husky install"
+  },
+  "IGNORE_ME_workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/hardhat",
+      "**/hardhat/**",
+      "**/hardhat-ts",
+      "**/hardhat-ts/**"
+    ]
+  },
+  "dependencies": {
+    "hardhat": "^2.12.1"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^2.0.0",
+    "husky": "^7.0.2"
+  }
+}
