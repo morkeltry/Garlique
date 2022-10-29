@@ -9,6 +9,7 @@ black
 black[jupyter]
 
 # blockchain stuff
+ecdsa
 # eth-brownie
 web3
 pysha3

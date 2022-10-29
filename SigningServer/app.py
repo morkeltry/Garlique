@@ -16,11 +16,10 @@ from flask import (
 )
 from werkzeug.exceptions import HTTPException
 import requests
-from Crypto.PublicKey import RSA
+from ecdsa import SigningKey
 
 
 app = Flask(__name__)
-SERVER_PRIVATE_KEY = "fijijf1939f3fd1yyt1yfyfy21f"
 ETHERSCAN_API_KEY = "A5B6KPZ99R1DHF94EEAJMIUSW3DWJDQCM5"
 
 # before request redirect to https
