@@ -18,9 +18,6 @@
 
 <head>
   <link href="dist/output.css" rel="stylesheet">
-  <!-- Javascript stuff -->
-  <!-- <script src="https://cdn.tailwindcss.com/"></script>
-  <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> -->
 
   <style>
     [x-cloak] {
@@ -78,9 +75,10 @@
 
         <p class="mb-4 text-lg font-light tracking-widest">
         <p class="py-2"> Welcome, Mortal.</p>
-        <p class="py-2"> The path ahead is very dangerous. There are vampires and leeches lurking around. They want to
+        <p class="py-2"> There are vampires and leeches lurking around. They want to
           know where you stash your gold. </p>
-        <p class="py-2"> Here, use this garlic potion to keep them (and lovers) away.
+        <p class="py-2"> You have dust in many crypts. Clean them privately with Garlic Crypt.  </p>
+        <p class="py-2">
         </p>
 
         <div class="sm:w-1/2 mx-auto mt-4 window-thin">
@@ -141,10 +139,10 @@
         </div>
 
         <div class="grid-cols-2 mt-4 w-full text-center">
-          <button x-html="$store.depositButtonText"
-            class="text-3xl p-4 m-2 px-4 bg-color-secondthird hover:shadow-none window w-full sm:w-1/3 hover:translate-x-2 hover:translate-y-2 "
-            @click="deposit();">
-            Stash </button>
+          <button
+            class="gothic text-3xl p-4 m-2 px-4 bg-color-secondthird hover:shadow-none window w-full sm:w-1/3 hover:translate-x-2 hover:translate-y-2 "
+            @click="alert('lol its broken can we win pls')">
+            Dust Now </button>
         </div>
       </div>
 

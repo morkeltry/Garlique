@@ -43,23 +43,21 @@ body {
 }
 
 .bg {
-  background-image: url("/dApp/dist/bg.png");
+  background-image: url("bg.png");
   background-size: 320px;
   opacity: 0.3;
 }
 
-
-
 .window {
   border: 10px solid transparent;
   padding: 15px;
-  border-image: url(border.png) 30 round;
+  border-image: url("border-thin.png") 30 round;
 }
 
 .window-thin {
     border: 10px solid transparent;
     padding: 15px;
-    border-image: url(border-thin.png) 30 round;
+    border-image: url('border-thin.png') 30 round;
   }
 
 .window-rounded {
