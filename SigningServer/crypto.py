@@ -4,8 +4,8 @@ from eth_account.messages import encode_defunct, _hash_eip191_message
 from web3.auto import w3
 from eip712_structs import EIP712Struct, Address, Boolean, Bytes, Int, String, Uint, make_domain
 
-
-PRIVATE_KEY = "0x4d9e599423f0a37115c35f1dc4b749a4754545e4172d3901260a484512eee4d6"
+import config
+PRIVATE_KEY = config.PRIVATE_KEY
 
 
 def hash_712(value, timestamp, receiver, receiver_type, custody_option, salt):
@@ -40,7 +40,12 @@ def sign_message(message):
     return r, s, v
     
 
-
+def get_account():
+    """
+    Returns the address associated with the private key
+    """
+    account = Account.from_key(PRIVATE_KEY)
+    return account.address
 
 def verify_signature(address, message, signature):
     """
@@ -55,6 +60,7 @@ def verify_signature(address, message, signature):
 if __name__ == "__main__":
     # run on local network
     print(sign_message("hello"))
+    print(get_account())
 
 
 # def hash_payload_eip712(payload):
