@@ -1,12 +1,9 @@
 {
-  "name": "@scaffold-eth/monorepo",
+  "name": "garlique",
   "version": "1.0.0",
   "keywords": [
     "ethereum",
-    "react",
-    "uniswap",
-    "workspaces",
-    "yarn"
+    "uniswap"
   ],
   "private": true,
   "scripts": {
