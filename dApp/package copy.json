@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "build": "cp -r src/* dist/ && npx tailwindcss -i ./src/input.css -o ./dist/output.css",
+    // copy all files from src to dist
+    "build-css": "cp -r src/* dist/ && npx tailwindcss -i ./src/input.css -o ./dist/output.css",
     "build-css-forever": "npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch"},
   "devDependencies": {
     "tailwindcss": "^3.2.1"

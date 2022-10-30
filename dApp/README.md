@@ -4,5 +4,5 @@ Frontend for stuff
 ## INSTRUCTIONS
 
 1. run ```npm install```
-2. run ```npx tailwindcss -i ./src/input.css -o ./dist/output.css``` to compile TailwindCSS
+2. run ```npm run build``` to build the CSS
 3. Open file in browser
