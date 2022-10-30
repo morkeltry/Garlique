@@ -10,19 +10,19 @@
   ],
   "private": true,
   "scripts": {
-    "chain": "yarn workspace @scaffold-eth/hardhat chain",
-    "fork": "yarn workspace @scaffold-eth/hardhat fork",
-    "node": "yarn workspace @scaffold-eth/hardhat chain",
-    "test": "yarn workspace @scaffold-eth/hardhat test",
-    "compile": "yarn workspace @scaffold-eth/hardhat compile",
-    "deploy": "yarn workspace @scaffold-eth/hardhat deploy",
-    "verify": "yarn workspace @scaffold-eth/hardhat verify",
-    "watch": "yarn workspace @scaffold-eth/hardhat watch",
-    "accounts": "yarn workspace @scaffold-eth/hardhat accounts",
-    "balance": "yarn workspace @scaffold-eth/hardhat balance",
-    "send": "yarn workspace @scaffold-eth/hardhat send",
-    "generate": "yarn workspace @scaffold-eth/hardhat generate",
-    "account": "yarn workspace @scaffold-eth/hardhat account",
+    "chain": "hardhat chain",
+    "fork": "hardhat fork",
+    "node": "hardhat chain",
+    "test": "hardhat test",
+    "compile": "hardhat compile",
+    "deploy": "hardhat deploy",
+    "verify": "hardhat verify",
+    "watch": "hardhat watch",
+    "accounts": "hardhat accounts",
+    "balance": "hardhat balance",
+    "send": "hardhat send",
+    "generate": "hardhat generate",
+    "account": "hardhat account",
     "mineContractAddress": "cd packages/hardhat && npx hardhat mineContractAddress",
     "wallet": "cd packages/hardhat && npx hardhat wallet",
     "fundedwallet": "cd packages/hardhat && npx hardhat fundedwallet",
@@ -42,8 +42,8 @@
     ]
   },
   "dependencies": {
-    "hardhat": "^2.12.1",
-    "@openzeppelin/contracts": "^4.7.3"
+    "@openzeppelin/contracts": "^4.7.3",
+    "hardhat": "^2.12.1"
   },
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.0",

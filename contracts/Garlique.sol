@@ -115,7 +115,7 @@ contract Garlique is Ownable, EIP712 {
         return keccak256(abi.encode(typeHash, nameHash, versionHash, block.chainid));
     }
 
-    function _buildDomainSeparator(bytes32 _typeHash, bytes32 _nameHash, bytes32 _versionHash) override private view returns (bytes32) {
+    function _buildDomainSeparator(bytes32 _typeHash, bytes32 _nameHash, bytes32 _versionHash) override internal view returns (bytes32) {
         return _buildShortDomainSeparator(_typeHash, _nameHash, _versionHash);
     }
 
@@ -151,7 +151,7 @@ contract Garlique is Ownable, EIP712 {
     // https://web3py.readthedocs.io/en/latest/web3.eth.account.html#sign-a-message
     // from web3.auto import w3
     // (r, s, v) = w3.eth.account.sign_message(message_hash, private_key)
-    function verifySignedCheque (SignedCheque calldata _cheque) internal returns (bool) { 
+    function verifySignedCheque (SignedCheque calldata _cheque) internal view returns (bool) { 
         require (verifyChequeHash(_cheque), "Cheque details have been tampered.");
 
         bytes32 hashStruct = _buildChequeStructHash(_cheque);
@@ -193,7 +193,7 @@ contract Garlique is Ownable, EIP712 {
     // from eth_account.messages import encode_defunct, _hash_eip191_message
     // message = value32b,redeemFromUnixTime32b, rcvr20b ,rcvr_type1b {0..4}, custody_option1b {0..}, salt4b
     // message_hash = _hash_eip191_message(message)
-    function verifyChequeHash(SignedCheque calldata _cheque) internal returns (bool) {        
+    function verifyChequeHash(SignedCheque calldata _cheque) internal pure returns (bool) {        
         bytes32 actualHash =  keccak256(abi.encodePacked(
             _cheque.value, _cheque.redeemFromUnixTime, _cheque.rcvr, _cheque.rcvr_type, _cheque.custody_option, _cheque.salt
         ));
@@ -205,14 +205,15 @@ contract Garlique is Ownable, EIP712 {
     // from web3 import Web3
     // from eth_account.messages import _hash_eip191_message
     // message_hash = _hash_eip191_message(_newReceiver)
-    function verifyEOASigned(address _oldReceiver, address _newReceiver, bytes32 r, bytes32 s, uint8 v) internal returns (bool) {
-
+    function verifyEOASigned(
+        address _oldReceiver, address _newReceiver, bytes32 _rNewReceiver, bytes32 _sNewReceiver, uint8 _vNewReceiver    
+    ) internal view returns (bool) {
+        
         require(_hasDeployedContract(_oldReceiver));
         // TODO: Implement EIP 1271 check
         
         bytes32 msgHash = keccak256(abi.encodePacked(_newReceiver));
-        address signer = ecrecover(msgHash, v, r, s);
-
+        address signer = ecrecover(msgHash, _vNewReceiver, _rNewReceiver, _sNewReceiver);
         require (_oldReceiver==signer, "Payment to receiver address must be signed by original receiver.");
         
         return true;
@@ -223,12 +224,15 @@ contract Garlique is Ownable, EIP712 {
     // TODO : This is nonsense 
     //    - implement sigConcat!!
     //    - define _oldReceiver as contract EIP4337
-    function verifyGaslessSigned(address _oldReceiver, address _newReceiver, bytes32 r, bytes32 s, uint8 v) internal returns (bool) {
+    function verifyGaslessSigned(
+        address _oldReceiver, address _newReceiver, bytes32 _rNewReceiver, bytes32 _sNewReceiver, uint8 _vNewReceiver    
+    ) internal view returns (bool) {
+
         // TODO: Implement EIP 1271 check
 
         bytes32 msgHash = keccak256(abi.encodePacked(_newReceiver));
         
-        // bytes EIP4337Sig = sigConcat(v,r,s);
+        // bytes EIP4337Sig = sigConcat(_vNewReceiver, _rNewReceiver, _sNewReceiver);
         bytes memory FAKE_EIP4337Sig;
 
         // isValidSignature(bytes memory _messageHash, bytes memory _signature);
@@ -277,7 +281,7 @@ contract Garlique is Ownable, EIP712 {
     // Placeholder before implementing EIP1271 check.. 
     // Not technically isContract(), since a CREATE2 contract not yet deployed would show as EOA. 
     // But re-entrancy is prevented by Checks-Effects-Interactions
-    function _hasDeployedContract(address isItContract) internal returns (bool) {
+    function _hasDeployedContract(address isItContract) internal view returns (bool) {
         // return isItContract.code.size >0;       
         uint size;
         assembly { size := extcodesize(isItContract) }
@@ -285,7 +289,7 @@ contract Garlique is Ownable, EIP712 {
     }
 
 
-    function _pullCustodiedFunds(address _custodian, uint _amount) internal returns (bool) {
+    function _pullCustodiedFunds(address _custodian, uint _amount) internal pure returns (bool) {
         // Not implemented 🤷🏻‍♀
         return true;
     }
@@ -334,27 +338,31 @@ contract Garlique is Ownable, EIP712 {
         return _spendChequeTo (_cheque, _cheque.rcvr);
     }
 
-    function spendOneEOAChequeToOther(SignedCheque calldata _cheque, address payable _newReceiver, uint _signedNewReceiver) public returns (bool) {
+    function spendOneEOAChequeToOther(
+            SignedCheque calldata _cheque, address payable _newReceiver, bytes32 _rNewReceiver, bytes32 _sNewReceiver, uint8 _vNewReceiver
+    ) public returns (bool) {
         require (_cheque.rcvr_type == receiver_type.EXTERNAL, "Wrong method for receiver type "); // TODO: ++_cheque.rcvr_type);
-        require (verifyEOASigned(_cheque.rcvr, _newReceiver, _cheque.r, _cheque.s, _cheque.v), "Bad signature approving different receiver");
+        require (verifyEOASigned(_cheque.rcvr, _newReceiver, _rNewReceiver, _sNewReceiver, _vNewReceiver), "Bad signature approving different receiver");
         require (verifySignedCheque(_cheque), "Bad signature.");
         return _spendChequeTo (_cheque, _newReceiver);
     }
 
-    function spendOneGaslessChequeToOther(SignedCheque calldata _cheque, address payable _newReceiver, uint _signedNewReceiver) public returns (bool) {
+    function spendOneGaslessChequeToOther(
+            SignedCheque calldata _cheque, address payable _newReceiver, bytes32 _rNewReceiver, bytes32 _sNewReceiver, uint8 _vNewReceiver
+     ) public returns (bool) {
         require (_cheque.rcvr_type == receiver_type.EXTERNAL_GASLESS, "Wrong method for receiver type "); // TODO: ++_cheque.rcvr_type);
-        require (verifyGaslessSigned(_cheque.rcvr, _newReceiver,  _cheque.r, _cheque.s, _cheque.v), "Bad signature approving different receiver");
+        require (verifyGaslessSigned(_cheque.rcvr, _newReceiver, _rNewReceiver, _sNewReceiver, _vNewReceiver), "Bad signature approving different receiver");
         require (verifySignedCheque(_cheque), "Bad signature.");
         return _spendChequeTo (_cheque, _newReceiver);
     }
 
-    function spendOneToInternal(SignedCheque calldata _cheque) public returns (bool)  {
+    function spendOneToInternal(SignedCheque calldata _cheque) public pure returns (bool)  {
         require (_cheque.rcvr_type == receiver_type.INTERNAL, "");
         require (false, "Internal cheques must be generated offchain. Send funds to this contract address to  ");
         return false;
     }
 
-    function spendOneToThis(SignedCheque calldata _cheque) public returns (bool) {
+    function spendOneToThis(SignedCheque calldata _cheque) public view returns (bool) {
         require (_cheque.rcvr_type == receiver_type.FEE || _cheque.rcvr_type == receiver_type.DONATE, "Wrong method for receiver type "); // TODO: ++_cheque.rcvr_type);
         return verifySignedCheque(_cheque);
     }
