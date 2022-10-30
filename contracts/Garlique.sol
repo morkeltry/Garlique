@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 // import "@openzeppelin/contracts/utils/cryptography/draft-EIP712.sol";
 import "./draft-EIP712-pruned.sol";
 // Uncomment this line to use console.log
-import "hardhat/console.sol";
+import "./console.sol";
 
 contract Garlique is Ownable, EIP712 {
     string constant NAME = "Garlique";
@@ -68,9 +68,13 @@ contract Garlique is Ownable, EIP712 {
     }
 
     SignedCheque testCheque1 = SignedCheque(1, 1630000000, 0x064Bd35c9064fC3e628a3BE3310a1cf65488103D, receiver_type.EXTERNAL, custodian.GARLIQUE, 0x00001234, 0, 0x0, 0x0, 0x0);
+    // verifyChequeHash gets to : 0x2deca923a2f6e65aa7fa3ae704aadc10604624355ffc799d33b360e4af6fe709
     SignedCheque testCheque2 = SignedCheque(1, 1630000000, 0x064Bd35c9064fC3e628a3BE3310a1cf65488103D, receiver_type.EXTERNAL, custodian.GARLIQUE, 0x000004D2, 0, 0x0, 0x0, 0x0);
+    // verifyChequeHash gets to : 0xb0ce3dc47c8d59105a0973f0743011701da7d24b51d1c5dfc9f7205d7384955a
     SignedCheque testCheque3 = SignedCheque(1, 1630000000, 0x064Bd35c9064fC3e628a3BE3310a1cf65488103D, receiver_type.EXTERNAL, custodian.GARLIQUE, 0x00001234, 0, 0x0, 0x0, 0xd6f0b1b5646649dc9e27a68de593b09ebf1673867d5a75c365382932b8a5734a);
+    // verifyChequeHash gets to : 
     SignedCheque testCheque4 = SignedCheque(1, 1630000000, 0x064Bd35c9064fC3e628a3BE3310a1cf65488103D, receiver_type.EXTERNAL, custodian.GARLIQUE, 0x000004D2, 0, 0x0, 0x0, 0x19018a622c0a4b96b0526126adfc31b844dafbbf2785693a0e6308dce6fac8b4);
+    // verifyChequeHash gets to :
 
 
 
