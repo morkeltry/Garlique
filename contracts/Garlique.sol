@@ -52,10 +52,12 @@ contract Garlique is Ownable, EIP712 {
         WSHIBU_PONZI_LP
     }
 
+    // TODO: uncomment L307-313 and L334-347
+    // TODO: address should be payable
     struct SignedCheque {
         uint value;                     // 32 byte
         uint redeemFromUnixTime;        // 32 byte out of sympathy for solidity, but only needs to be 4 byte
-        address payable rcvr;           // 20 byte
+        address rcvr;           // 20 byte
         receiver_type rcvr_type;        // 1 byte
         custodian custody_option;       // 1 byte
         bytes4 salt;                    // 4 byte
@@ -64,6 +66,13 @@ contract Garlique is Ownable, EIP712 {
         bytes32 s;                      // 32 byte
         bytes32 msgHash;                // 32 byte
     }
+
+    SignedCheque testCheque1 = SignedCheque(1, 1630000000, 0x064Bd35c9064fC3e628a3BE3310a1cf65488103D, receiver_type.EXTERNAL, custodian.GARLIQUE, 0x00001234, 0, 0x0, 0x0, 0x0);
+    SignedCheque testCheque2 = SignedCheque(1, 1630000000, 0x064Bd35c9064fC3e628a3BE3310a1cf65488103D, receiver_type.EXTERNAL, custodian.GARLIQUE, 0x000004D2, 0, 0x0, 0x0, 0x0);
+    SignedCheque testCheque3 = SignedCheque(1, 1630000000, 0x064Bd35c9064fC3e628a3BE3310a1cf65488103D, receiver_type.EXTERNAL, custodian.GARLIQUE, 0x00001234, 0, 0x0, 0x0, 0xd6f0b1b5646649dc9e27a68de593b09ebf1673867d5a75c365382932b8a5734a);
+    SignedCheque testCheque4 = SignedCheque(1, 1630000000, 0x064Bd35c9064fC3e628a3BE3310a1cf65488103D, receiver_type.EXTERNAL, custodian.GARLIQUE, 0x000004D2, 0, 0x0, 0x0, 0x19018a622c0a4b96b0526126adfc31b844dafbbf2785693a0e6308dce6fac8b4);
+
+
 
     // address payable public owner;
     uint public dao_balance;
@@ -296,13 +305,13 @@ contract Garlique is Ownable, EIP712 {
 
     function spendOneCheque(SignedCheque calldata _cheque) public returns (bool) {
         bool success;
-        if (_cheque.rcvr_type == receiver_type.EXTERNAL) {
-            success = spendOneEOAChequeToSelf(_cheque);
-        } else
-        if (_cheque.rcvr_type == receiver_type.EXTERNAL_GASLESS) {
-            success = spendOneGaslessChequeToSelf(_cheque);
+        // if (_cheque.rcvr_type == receiver_type.EXTERNAL) {
+        //     success = spendOneEOAChequeToSelf(_cheque);
+        // } else
+        // if (_cheque.rcvr_type == receiver_type.EXTERNAL_GASLESS) {
+        //     success = spendOneGaslessChequeToSelf(_cheque);
             
-        } else
+        // } else
         if (_cheque.rcvr_type == receiver_type.INTERNAL) {
             // Not implemented - will revert.
             success = spendOneToInternal(_cheque);
@@ -323,20 +332,20 @@ contract Garlique is Ownable, EIP712 {
         return success;
     }
 
-    function spendOneEOAChequeToSelf(SignedCheque calldata _cheque) public returns (bool) {
-        require (_cheque.rcvr_type == receiver_type.EXTERNAL, "Wrong method for receiver type "); // TODO: ++_cheque.rcvr_type);
-        require (tx.origin==msg.sender, "Contract addresses (eg Safe/ EIP4337), use spendOneGaslessChequeToSelf.");
-        require (_cheque.rcvr==msg.sender, "Spending to different address, use spendOneEOAChequeToOther.");
-        require (verifySignedCheque(_cheque), "Bad signature.");
-        return _spendChequeTo (_cheque, _cheque.rcvr);
-    }
+    // function spendOneEOAChequeToSelf(SignedCheque calldata _cheque) public returns (bool) {
+    //     require (_cheque.rcvr_type == receiver_type.EXTERNAL, "Wrong method for receiver type "); // TODO: ++_cheque.rcvr_type);
+    //     require (tx.origin==msg.sender, "Contract addresses (eg Safe/ EIP4337), use spendOneGaslessChequeToSelf.");
+    //     require (_cheque.rcvr==msg.sender, "Spending to different address, use spendOneEOAChequeToOther.");
+    //     require (verifySignedCheque(_cheque), "Bad signature.");
+    //     return _spendChequeTo (_cheque, _cheque.rcvr);
+    // }
 
-    function spendOneGaslessChequeToSelf(SignedCheque calldata _cheque) public returns (bool) {
-        require (_cheque.rcvr_type == receiver_type.EXTERNAL_GASLESS, "Wrong method for receiver type "); // TODO: ++_cheque.rcvr_type);
-        require (_cheque.rcvr==msg.sender, "Spending to different address, use spendOneGaslessChequeToOther.");
-        require (verifySignedCheque(_cheque), "Bad signature.");
-        return _spendChequeTo (_cheque, _cheque.rcvr);
-    }
+    // function spendOneGaslessChequeToSelf(SignedCheque calldata _cheque) public returns (bool) {
+    //     require (_cheque.rcvr_type == receiver_type.EXTERNAL_GASLESS, "Wrong method for receiver type "); // TODO: ++_cheque.rcvr_type);
+    //     require (_cheque.rcvr==msg.sender, "Spending to different address, use spendOneGaslessChequeToOther.");
+    //     require (verifySignedCheque(_cheque), "Bad signature.");
+    //     return _spendChequeTo (_cheque, _cheque.rcvr);
+    // }
 
     function spendOneEOAChequeToOther(
             SignedCheque calldata _cheque, address payable _newReceiver, bytes32 _rNewReceiver, bytes32 _sNewReceiver, uint8 _vNewReceiver
