@@ -1,3 +1,10 @@
+# virtual env
+venv/
+dist/
+
+__pycache__/
+
+
 packages/subgraph/subgraph.yaml
 packages/subgraph/generated
 packages/subgraph/abis/*
@@ -68,6 +75,7 @@ yarn-error.log*
 # doc directory
 /doc
 node_modules
+
 .env
 coverage
 coverage.json

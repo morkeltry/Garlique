@@ -1,0 +1,10 @@
+value: 1000000000000000000
+redeemFromUnixTime: 1667080887
+rcvr: 0x064bd35c9064fc3e628a3be3310a1cf65488103d
+rcvr_type: 0
+custody_option: 0
+salt: 1234
+domain inputs: 'name': Garlique, 'version': 0.1, 'chainId': 5
+
+OUTPUTS:
+hash: 19018a622c0a4b96b0526126adfc31b844dafbbf2785693a0e6308dce6fac8b48f6364edf70aa167ea240ab9d7f3b4cc26192838af36aa8cae2ac4639cb79fd50923

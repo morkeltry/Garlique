@@ -1,0 +1,20 @@
+### External Python libraries to install in venv
+# TODO: add versions (maybe?)
+
+# dev stuff
+ipykernel
+black
+black[jupyter]
+
+# blockchain stuff
+ecdsa
+# eth-brownie
+web3
+pysha3
+eip712-structs
+
+# server stuff
+flask
+gunicorn
+w3storage
+
